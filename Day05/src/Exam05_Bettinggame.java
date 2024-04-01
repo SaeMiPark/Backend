@@ -1,6 +1,6 @@
 import java.util.Scanner;
 /*배팅 게임*/
-public class Quiz08 {
+public class Exam05_Bettinggame {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		int balance=0, fill=0;
@@ -101,3 +101,4 @@ public class Quiz08 {
 	}
 
 }
+

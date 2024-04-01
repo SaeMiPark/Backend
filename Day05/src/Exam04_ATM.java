@@ -1,7 +1,7 @@
 import java.util.Scanner;
 /*ATM 시뮬레이터*/
 
-public class Quiz06 {
+public class Exam04_ATM {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		int menu;
@@ -85,3 +85,4 @@ public class Quiz06 {
 	}
 
 }
+
