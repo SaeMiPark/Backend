@@ -8,7 +8,7 @@ public class Quiz01 {
 		Car genesis=new Car("Genesis GV80",80000000, new String[] {"Gray","Blue","Pink"});
 		System.out.println(genesis.getModel());
 		System.out.println(genesis.getPrice());
-		System.out.println(genesis.getColorAsString());
+		System.out.println(genesis.getColor());
 	}
 
 }

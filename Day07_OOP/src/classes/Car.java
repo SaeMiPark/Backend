@@ -38,14 +38,20 @@ public class Car {
 		return this.price;
 	}
 	
-	public String[] getColor() {
-		return this.color;
+	//배열 출력 방법 1
+	public String getColor(){
+		String str="";
+		for(int i=0; i<color.length; i++) {
+			str+=color[i]+" ";
+		}
+		return str;
 	}
 	
+	//배열 출력 방법2
 	//color배열을 문자열로 변환하여 반환
-	public String getColorAsString() {
-		return Arrays.toString(color);
-	}
+	//public String getColorAsString() {
+	//	return Arrays.toString(color);
+	//}
 	
 
 }
