@@ -1,30 +1,21 @@
 import java.util.Scanner;
 
 public class Quiz04 {
+	public static Scanner sc=new Scanner(System.in);
 	
-	public static int validInput(String str) {
-		Scanner sc=new Scanner(System.in);
-		
-		int num=0;
-		
+	public static int validInput(String uimsg) { //이름 뜻: 유효한 입력
 		while(true) {
 			try {
-				System.out.print(str);
-				num=Integer.parseInt(sc.nextLine());
-				break;
-				
+				System.out.print(uimsg);
+				int num=Integer.parseInt(sc.nextLine());
+				return num;
 			}catch(Exception e) {
 				System.out.println("숫자만 입력 가능합니다.");
 			}
 		}
-		
-		return num;	
 	}
 	
-	
-	public static void main(String[] args) {
-		Scanner sc=new Scanner(System.in);	
-
+	public static void main(String[] args) {	
 		String op;
 		int num1, num2;
 		int result=0;
