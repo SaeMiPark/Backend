@@ -1,7 +1,8 @@
 package classes;
 
 public class Movie {
-	private String platform;
+	//new를 했을 때 셋팅하는 값
+	private String platform="영화관";
 	private String title;
 	private String genre;
 	

@@ -22,4 +22,5 @@ public class Quiz02 {
 	System.out.println(movie2.getPlatform()+movie2.getTitle()+movie2.getGenre());
 	System.out.println(movie3.getPlatform()+movie3.getTitle()+movie3.getGenre());
 	}
+	
 }

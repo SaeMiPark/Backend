@@ -1,5 +1,6 @@
 package quizs;
 import classes.Car;
+import classes.Car2;
 //import classes.Car; 다른 패키지에 있다면 import로 가져와야 한다!!
 
 public class Quiz01 {
@@ -9,6 +10,8 @@ public class Quiz01 {
 		System.out.println(genesis.getModel());
 		System.out.println(genesis.getPrice());
 		System.out.println(genesis.getColor());
+		
+		Car2 reviewcar=new Car2("Genesis",8000,"Gray");
 	}
 
 }

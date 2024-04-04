@@ -9,8 +9,6 @@ public class Exam03 {
 		//private은 아예 접근을 막음
 		//->어떻게 바꿀 수 있을까? getter, setter
 		
-		
-		
 		System.out.println(lg.getPrice());
 		System.out.println(lg.getChannel());
 		System.out.println(lg.getVolume());
