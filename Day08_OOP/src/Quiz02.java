@@ -7,7 +7,7 @@ import it.sauronsoftware.ftp4j.FTPClient;
 
 public class Quiz02 {
 	// 재귀 함수를 사용하여 중복 순열 생성
-    public static void generatePermutations(int[] nums, StringBuilder sb, int index, ArrayList<String> result) {
+    public static void generatePermutations(char[] nums, StringBuilder sb, int index, ArrayList<String> result) {
         // 기저 사례: 순열의 길이가 원하는 길이에 도달하면 결과에 추가
         if (index == 4) {
             result.add(sb.toString());
@@ -31,18 +31,18 @@ public class Quiz02 {
 	public static void main(String[] args) {
 		FTPClient client = new FTPClient();
 		try {
-			client.connect("192.168.0.189");
+			client.connect("192.168.0.161");
 
 		}catch(Exception e) {
 			e.printStackTrace();
 			return;
 		}
 
-		int[] nums= {0,1,2,3,4,5,6,7,8,9};
+		char[] keys="!@$%^&*()".toCharArray();
 		StringBuilder sb = new StringBuilder();
 	    ArrayList<String> result = new ArrayList<>();
 
-		generatePermutations(nums, sb, 0, result);
+		generatePermutations(keys, sb, 0, result);
 		
 		for(String str: result) {
 			try{
