@@ -15,6 +15,14 @@ public class MusicDAO extends MusicDTO{
 
 	//조회,검색 searchByTitle
 	public ArrayList<MusicDTO> findMusic(String title) {
+		/*실험: MusicDTO는 null타입이 될 수 있다.
+		for(int i=0; i<musics.size(); i++) {
+			if(musics.get(i).equals(title)) {
+				return musics.get(i);
+			}
+		}
+		return null;*/
+		
 		ArrayList<MusicDTO> musiclist=new ArrayList<>();
 		//musiclist는 비어있지 않다. 주소값을 가지고 있다.
 		for(MusicDTO m:musics) {
