@@ -57,24 +57,17 @@ public class Main {
 				String title=sc.nextLine();
 
 				ArrayList<MusicDTO> arr2=dao.getmusiclist();
-				ArrayList<MusicDTO> findarr=dao.findMusic(title);
+				ArrayList<MusicDTO> findlist=dao.findMusic(title);
 
-				//ArrayList끼리 비교할 수 없음.
-				/*if(arr2.contains(findarr)) {}*/
-				//findarr는 무조건 값을 가지고 있음. 무슨 값? 주소값
-				if(findarr.size()==0) {
+				if(findlist.size()==0) {
 					System.out.println("노래 정보가 없습니다.");
 				}else {
-					for(MusicDTO music2: findarr) { 
-						if(arr2.contains(music2)) { //처음에 여기에 else를 넣었는데 안 나옴.
-							//그 이유는 찾을 게 없다면 findarr가 비어있어서 for문 자체가 돌지 않아 if가 실행될 수 없음.
-							//비어있다는 것은 null이라는 의미가 아니다, 텅빈 어레이 리스트라도 어레이 리스트 주소가 들어있다!!!
-							//null값을 반환하고 싶다면 함수 반환으로 null을 넣어. 그건 내 마음이다.
-							//이럴 떄는 sysout(arr2.contains(music2)) 이 부분이 잘 나오는지 확인해볼 것.
-							System.out.println(music2.getId()+"\t"
-									+music2.getTitle()+"\t"
-									+music2.getSinger()+"\t"
-									+formatter.format(music2.getDate()));
+					for(MusicDTO music: findlist) { 
+						if(arr2.contains(music)) { 
+							System.out.println(music.getId()+"\t"
+									+music.getTitle()+"\t"
+									+music.getSinger()+"\t"
+									+formatter.format(music.getDate()));
 						}
 					}
 				}
@@ -114,3 +107,12 @@ public class Main {
 	}
 
 }
+
+//조회 검색 기능 ArrayList끼리 비교할 수 없음.
+/*if(arr2.contains(findarr)) {}*/
+//findarr는 무조건 값을 가지고 있음. 무슨 값? 주소값
+//처음에 if(arr2.contains(music2)) 에 else를 넣었는데 안 나옴.
+//그 이유는 찾을 게 없다면 findarr가 비어있어서 for문 자체가 돌지 않아 if가 실행될 수 없음.
+//비어있다는 것은 null이라는 의미가 아니다, 텅빈 어레이 리스트라도 어레이 리스트 주소가 들어있다!!!
+//null값을 반환하고 싶다면 함수 반환으로 null을 넣어. 그건 내 마음이다.
+//이럴 떄는 sysout(arr2.contains(music2)) 이 부분이 잘 나오는지 확인해볼 것.

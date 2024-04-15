@@ -15,16 +15,7 @@ public class MusicDAO extends MusicDTO{
 
 	//조회,검색 searchByTitle
 	public ArrayList<MusicDTO> findMusic(String title) {
-		/*실험: MusicDTO는 null타입이 될 수 있다.
-		for(int i=0; i<musics.size(); i++) {
-			if(musics.get(i).equals(title)) {
-				return musics.get(i);
-			}
-		}
-		return null;*/
-		
 		ArrayList<MusicDTO> musiclist=new ArrayList<>();
-		//musiclist는 비어있지 않다. 주소값을 가지고 있다.
 		for(MusicDTO m:musics) {
 			if(m.getTitle().equals(title)) {
 				musiclist.add(m);
@@ -46,16 +37,15 @@ public class MusicDAO extends MusicDTO{
 
 	//수정
 	public Boolean modifyMusic(String id, String title, String singer, Date date) {
-		Boolean flag=false;
 		for(MusicDTO m:musics) {
 			if(m.getId().equals(id)) {
 				m.setTitle(title);
 				m.setSinger(singer);
 				m.setDate(date);
-				flag=true;
+				return true;  //수정한 순간 빠져나옴
 			}
 		}
-		return flag;
+		return false;
 	}
 
 
@@ -64,3 +54,11 @@ public class MusicDAO extends MusicDTO{
 	}
 
 }
+
+//검색 test: MusicDTO는 null타입이 될 수 있다.
+/*for(int i=0; i<musics.size(); i++) {
+	if(musics.get(i).equals(title)) return musics.get(i);
+}
+return null;*/
+
+//musiclist는 비어있지 않다. 주소 값을 가지고 있다.
