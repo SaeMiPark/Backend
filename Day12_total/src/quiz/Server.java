@@ -15,12 +15,13 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		//접속, 연결
 		ServerSocket server=new ServerSocket(26000);
+		System.out.println("접속 대기 중");
 		Socket sock=server.accept();
+		System.out.println("접속 성공");
 		//System.out.println(sock.getInetAddress()+"로부터 접속");
 
 		//통로
-		InputStream is=sock.getInputStream();
-		DataInputStream dis=new DataInputStream(is);
+		DataInputStream dis=new DataInputStream(sock.getInputStream());
 		OutputStream os=sock.getOutputStream(); 
 		DataOutputStream dos=new DataOutputStream(os);
 		
@@ -53,12 +54,14 @@ public class Server {
 				
 				//로또 번호 내보내기
 				dos.writeUTF(Arrays.toString(my));
+				dos.flush();
 
 			}else if(msg.equals("2")) {
 				long time=System.currentTimeMillis();
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
 				String result=sdf.format(time);
 				dos.writeUTF(result);
+				dos.flush();
 				
 			}else if(msg.equals("3")) {
 				//3가지 정도의 명언 중 랜덤 1개
@@ -82,6 +85,7 @@ public class Server {
 				
 				//명언 내보내기
 				dos.writeUTF(strarr[0]);
+				dos.flush();
 				
 				
 			}

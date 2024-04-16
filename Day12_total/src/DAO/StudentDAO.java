@@ -31,7 +31,6 @@ public class StudentDAO {
 	//조회,검색
 	public ArrayList<StudentDTO> searchByName(String name){
 		ArrayList<StudentDTO> findstds =new ArrayList<StudentDTO>();
-		
 		for(StudentDTO dto: stds) {
 			if(dto.getName().equals(name)) {
 				findstds.add(dto);
