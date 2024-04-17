@@ -10,6 +10,33 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
+
+
+class Send extends Thread{
+	private DataOutputStream dos;
+
+	public Send(DataOutputStream dos) {
+		this.dos=dos;
+	}
+
+
+	public void run() {
+		while(true) {
+			String mymsg=JOptionPane.showInputDialog("보낼 메세지를 입력하세요.");
+			try {
+				dos.writeUTF(mymsg);
+				dos.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+			System.out.println("나 : "+mymsg);
+		}
+	}
+
+
+}
+
 public class Server {
 	public static void main(String[] args) throws IOException {
 		//접속, 연결
@@ -21,27 +48,17 @@ public class Server {
 		//통로 만들기
 		//기본 stream 생성
 		OutputStream os=sock.getOutputStream(); //output내보내기
-		//업그레이드 straeam으로 보강공사, 필터드스트림
-		DataOutputStream dos=new DataOutputStream(os);
-		
 		InputStream is=sock.getInputStream();
+		DataOutputStream dos=new DataOutputStream(os);
 		DataInputStream dis=new DataInputStream(is);
 		
-		while(true) {
-			//데이터 트럭에 저장
-			String mymsg=JOptionPane.showInputDialog("보낼 메세지를 입력하세요.");
-			dos.writeUTF(mymsg);
-			//트럭 출발 1. 데이터 꽉 차거나 2. 그냥 출발해
-			dos.flush();
-			System.out.println("나 : "+mymsg);
-			
-			String msg=dis.readUTF();
-			System.out.println("언니 : "+msg);
-			
-		}
+		Send sd=new Send(dos);
+		sd.start();
 
-		//서버-클라이언트 규칙
-		//write와 read 수가 일치해야한다==프로토콜
+		while(true) {
+			String msg=dis.readUTF();
+			System.out.println("Client : "+msg);
+		}
 
 	}
 
