@@ -33,11 +33,9 @@ class Send extends Thread{
 			System.out.println("나 : "+mymsg);
 		}
 	}
-
-
 }
 
-public class Server {
+public class Msgserver {
 	public static void main(String[] args) throws IOException {
 		//접속, 연결
 		ServerSocket server=new ServerSocket(26000);
