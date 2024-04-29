@@ -14,7 +14,7 @@ public class Fileserver {
 		
 		
 		while(true) {
-			Socket  sock=server.accept(); //싱글 뜨레드로 해도 된다? 무한 접속 허용
+			Socket sock=server.accept(); //싱글 뜨레드로 해도 된다? 무한 접속 허용
 			FileThread ft=new FileThread(sock); //접속자마다 thread만들어 준다.
 			ft.start();//각 thread실행
 			
