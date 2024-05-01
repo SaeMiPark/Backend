@@ -7,15 +7,16 @@ public class ContactDTO {
 	private int id;
 	private String name;
 	private String phone;
-	private Timestamp date;
+	private Timestamp reg_date;
 	
 	//생성자
 	public ContactDTO() {}
+	
 	public ContactDTO(int id,String name,String phone,Timestamp date) {
 		this.id=id;
 		this.name=name;
 		this.phone=phone;
-		this.date=date;
+		this.reg_date=date;
 		
 	}
 	
@@ -37,11 +38,11 @@ public class ContactDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Timestamp getDate() { //리턴타입 Date도 된다.
-		return date;
+	public Timestamp getDate() { //timestamp가 부모이기 때문에 리턴타입 Date도 된다.
+		return reg_date;
 	}
 	public void setDate(Timestamp date) {
-		this.date = date;
+		this.reg_date = date;
 	}
 
 }

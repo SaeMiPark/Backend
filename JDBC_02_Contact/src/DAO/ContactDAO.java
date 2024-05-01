@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -20,42 +21,46 @@ public class ContactDAO {
 	}
 
 	//id 중복 체크 기능
-	public boolean isContactExist(int id) throws Exception{
-		String sql="select * from contact where id="+id;
-		
+	public boolean isIdExist(int id) throws Exception{
+		String sql="select * from contact where id=?";
+
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
-				ResultSet rs=stat.executeQuery(sql);
+				PreparedStatement pstat=con.prepareStatement(sql);
 				){
-			
-			return rs.next();
+			pstat.setInt(1, id);
+
+			try(
+					ResultSet rs=pstat.executeQuery();
+					){
+				return rs.next();
+			}
 		}
-		
+
 	}
 
 	//신규 등록-insert
 	public int addContact(ContactDTO dto) throws Exception  {
-		String sql="insert into contact values(contact_seq.nextval"+
-				", '"+dto.getName()+"', '"+dto.getPhone()+"', '"+dto.getDate()+"')";
+		String sql="insert into contact values(contact_seq.nextval,?,?,?)";
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
+				PreparedStatement pstat=con.prepareStatement(sql);
 				)
 		{
-			int result=stat.executeUpdate(sql);
-			return result;
-
+			pstat.setString(1,dto.getName());
+			pstat.setString(2, dto.getPhone());
+			pstat.setTimestamp(3, dto.getDate());
+			return pstat.executeUpdate();
 		}
 	}
 
 	//전체 목록 출력-select
 	public ArrayList<ContactDTO> selectAll() throws Exception{
-		String sql="select * from contact";
+		String sql="select * from contact order by 1";
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
-				ResultSet rs=stat.executeQuery(sql);
+				PreparedStatement pstat=con.prepareStatement(sql);
+				ResultSet rs=pstat.executeQuery();
 
 				)
 		{
@@ -64,9 +69,9 @@ public class ContactDAO {
 				int id=rs.getInt("id");
 				String name=rs.getString("name");
 				String phone=rs.getString("phone");
-				Timestamp timestampdate=rs.getTimestamp("reg_date");
+				Timestamp ts=rs.getTimestamp("reg_date");
 
-				list.add(new ContactDTO(id,name,phone,timestampdate));
+				list.add(new ContactDTO(id,name,phone,ts));
 			}
 			return list;
 
@@ -75,54 +80,58 @@ public class ContactDAO {
 
 	//id로 항목 삭제-delete
 	public int deleteById(int deleteid) throws Exception{
-		String sql="delete from contact where id ="+deleteid;
+		String sql="delete from contact where id =?";
 
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
+				PreparedStatement pstat=con.prepareStatement(sql);
 				){
 
-			int result=stat.executeUpdate(sql);
-			return result;
-
+			pstat.setInt(1,deleteid);
+			return pstat.executeUpdate();	 
 		}	
 	}
 
 	//id로 항목 수정-update
 	public int updateById(int deleteid, String name, String phone, Timestamp ts) throws Exception{
-		String sql="update contact set name= '"+name+"',  phone='"+phone+"' where id ="+deleteid;
+		String sql="update contact set name= ?,  phone=?, reg_date=? where id =?";
 
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
+				PreparedStatement pstat=con.prepareStatement(sql);
 				){
-
-			int result=stat.executeUpdate(sql);
-			return result;
-
+			pstat.setString(1, name);
+			pstat.setString(2, phone);
+			pstat.setTimestamp(3, ts);
+			pstat.setInt(4, deleteid);
+			return pstat.executeUpdate();
 		}	
 	}
 
 	//name으로 검색하기-select
 	public ArrayList<ContactDTO> searchByName(String searchname) throws Exception{
-		String sql="select * from contact where name = '"+searchname+"'";
+		String sql="select * from contact where name like ?";
 		try(
 				Connection con=this.getConnection();
-				Statement stat=con.createStatement();
-				ResultSet rs=stat.executeQuery(sql);
-
+				PreparedStatement pstat=con.prepareStatement(sql);
 				)
 		{
-			ArrayList<ContactDTO> list=new ArrayList<ContactDTO>();
-			while(rs.next()) {
-				int id=rs.getInt("id");
-				String name=rs.getString("name");
-				String phone=rs.getString("phone");
-				Timestamp timestampdate=rs.getTimestamp("reg_date");
+			pstat.setString(1, "%"+searchname+"%");
 
-				list.add(new ContactDTO(id,name,phone,timestampdate));
+			try(
+					ResultSet rs=pstat.executeQuery();
+					){
+				ArrayList<ContactDTO> list=new ArrayList<ContactDTO>();
+				while(rs.next()) {
+					int id=rs.getInt("id");
+					String name=rs.getString("name");
+					String phone=rs.getString("phone");
+					Timestamp ts=rs.getTimestamp("reg_date");
+
+					list.add(new ContactDTO(id,name,phone,ts));
+				}
+				return list;
 			}
-			return list;
 
 		}	
 	}
