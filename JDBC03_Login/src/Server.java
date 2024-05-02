@@ -2,30 +2,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.MessageDigest;
+
+import commons.Statics;
 
 public class Server {
-	public static String getSHA512(String input){
-		String toReturn = null;
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-512");
-			digest.reset();
-			digest.update(input.getBytes("utf8"));
-			toReturn = String.format("%064x", new BigInteger(1, digest.digest()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return toReturn;
-	}
-	
-	
-
 	public static void main(String[] args)  {
 		try {
-			LoginDAO manager=new LoginDAO();
+			MembersDAO manager=new MembersDAO();
 			ServerSocket  server=new ServerSocket(30000); 
 
 			while(true) {
@@ -43,7 +28,7 @@ public class Server {
 				//로그인
 				if(menu.equals("1")) {
 					String id=dis.readUTF();
-					String pw=getSHA512(dis.readUTF());
+					String pw=Statics.getSHA512(dis.readUTF());
 					boolean result=manager.login(id, pw);
 
 					if(result) {
@@ -59,7 +44,7 @@ public class Server {
 				//회원 가입
 				}else if(menu.equals("2")) {
 					String id=dis.readUTF();
-					String pw=getSHA512(dis.readUTF());
+					String pw=Statics.getSHA512(dis.readUTF());
 					String name=dis.readUTF();
 					int result=manager.insert(id, pw, name);
 					if(result>0) {
