@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+  
+    <style>
+        div {
+            border: 1px solid black;
+        }
+
+        .con {
+            width: 500px;
+            height: 200px;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .indexdiv {
+            flex: 0.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btnsdiv {
+            flex: 0.8;
+        }
+
+        .toinputdiv,
+        .tooutputdiv {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con col">
+        <div class="indexdiv">Index</div>
+        <div class="btnsdiv row">
+            <div class="toinputdiv">
+                <a href="inputform.html"><button class="toinputbtn">input</button></a>
+            </div>
+            <div class="tooutputdiv">
+                <a href="OutputServlet.messages"><button id="btn2" class="tooutputbtn">output</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

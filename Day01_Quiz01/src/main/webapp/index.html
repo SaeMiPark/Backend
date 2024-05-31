@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            border: 1px solid black;
+        }
+
+        .container {
+            width: 400px;
+            height: 100px;
+            margin: auto;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .movie,
+        .btns, .insertdiv, .etcdiv {
+            flex: 1;
+        }
+
+        .movie{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row{
+            display: flex;
+        }
+
+        .insertdiv, .etcdiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+    <div class="container col">
+        <div class="movie">Movie</div>
+        <div class="btns row">
+            <div class="insertdiv"><button class="insertbtn" onclick="location.href='inputform.html'">insertbtn</button></div>
+            <div class="etcdiv"><button class="etcbtn" onclick="location.href='etcservlet.movies'">etcbtn</button></div>
+        </div>
+    </div>
+</body>
+
+</html>

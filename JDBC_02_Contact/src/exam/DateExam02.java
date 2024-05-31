@@ -33,14 +33,7 @@ public class DateExam02 {
 		//방법 똑같다.
 		//ts와 reg_date는 여기서 DB에서 꺼낸 값일 것.
 		String tsstr=sdf.format(ts);
-		String reg_date_str=sdf.format(reg_date);
-		
-		
-		
-		
-		
-		
-		
+		String reg_date_str=sdf.format(reg_date);	
 	}
 
 }

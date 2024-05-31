@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+/*div {
+    border: 1px solid black;
+}
+
+.row {
+    border-bottom: 1px solid black;
+}
+
+.container {
+    padding: 0px;
+    border: 1px solid black;
+}*/
+
+.col,
+.row,
+div[class*=col] {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/*body*/
+#fashion_img {
+    transition: transform 1s ease;
+}
+
+#fashion_img:hover {
+    position: relative;
+    z-index: 1;
+    transform: translateX(80px);
+
+}
+
+#beauty_img {
+    transition: transform 1s ease;
+}
+
+#beauty_img:hover {
+    transform: translateX(-80px);
+}
+
+
+.con {
+    position: relative;
+}
+
+.con>.color1 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition-duration: 2s;
+}
+
+.con:hover>.color1 {
+    background-color: lightsteelblue;
+    opacity: 0.5;
+}
+
+.con>.color2 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition-duration: 2s;
+}
+
+.con:hover>.color2 {
+    background-color: rgb(249, 218, 218);
+    opacity: 0.5;
+}
