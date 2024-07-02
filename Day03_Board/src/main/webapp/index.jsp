@@ -23,7 +23,6 @@
 <body>
 	<c:choose>
 		<c:when test="${loginID != null}">
-
 			<table border=1>
 				<tr>
 					<th colspan=4>${loginID}님 환영합니다.</th>
@@ -89,8 +88,6 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
-
-
 
 </body>
 </html>

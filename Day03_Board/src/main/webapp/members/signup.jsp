@@ -66,8 +66,8 @@ input:focus {
 				</div>
 				<br>
 				<div>
-					<span>패스워드 확인</span><input name="pw2" class="input_pw2" type="password"
-						placeholder="패스워드 재입력">
+					<span>패스워드 확인</span><input name="pw2" class="input_pw2"
+						type="password" placeholder="패스워드 재입력">
 				</div>
 				<div class="pwcheck" style="display: none;"></div>
 				<br>
@@ -89,7 +89,7 @@ input:focus {
 				<div>
 					<span>우편번호</span><input name="zipcode" class="zonecode" type="text"
 						placeholder="우편번호" readonly>
-					<button type="button"class="juso_btn">검색</button>
+					<button type="button" class="juso_btn">검색</button>
 				</div>
 				<br>
 				<div>
@@ -112,28 +112,40 @@ input:focus {
 	</div>
 
 	<script>
-		var didIdCheck = false;
-
+		let didIdCheck = false;
+		
+		//focusout, input, keyup
 		//id 중복 체크 버튼 기능
-		$(".id_check").on(
-				"click",
-				function() {
-					let id = $(".input_id");
-					//id유효성체크
-					if (id.val() == "") {
-						alert("id를 먼저 입력해주세요.");
-						return false;
-					} else {
-						let regexid = /[a-z0-9_]{8,}/;
-						let resultid = regexid.test(id.val());
-						if (resultid == false) {
-							alert("유효하지 않은 id입니다.");
-							return false;
-						}
-						window.open("/idcheck.members?id=" + id.val(), "",
-								"width=300, height=300");
-					}
-				})
+		$(".id_check").on("click", function() {
+			let id = $(".input_id");
+			//id유효성체크
+			if (id.val() == "") {
+				alert("id를 먼저 입력해주세요.");
+				return false;
+			} else {
+				let regexid = /[a-z0-9_]{8,}/;
+				let resultid = regexid.test(id.val());
+				if (resultid == false) {
+					alert("유효하지 않은 id입니다.");
+					return false;
+				}
+				//window.open("/idcheck.members?id=" + id.val(), "",
+				//	"width=300, height=300");
+				$.ajax({
+					url : "/idcheck.members",
+					type : "post",
+					data : {id : id.val()},
+					dataType: "json"
+				}).done(function(result){
+					console.log(result);
+					if (result) {  
+						alert("이미 사용 중인 ID입니다.");
+	                } else {
+	                    alert("사용 가능한 ID입니다.");
+	                }
+				});
+			}
+		})
 
 		//주소 검색 기능
 		$(".juso_btn").on("click", function() {

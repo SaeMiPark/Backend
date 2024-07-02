@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import commons.EncryptionUtils;
 import dao.MembersDAO;
@@ -20,18 +23,27 @@ public class MembersController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Gson g=new Gson();
 		
 		String cmd=request.getRequestURI();
 		System.out.println(cmd);
+		
 		MembersDAO dao=MembersDAO.getInstance();
 		try {
 			if(cmd.equals("/idcheck.members")) {
+				//받기 체크하기
+				PrintWriter pw=response.getWriter();
 				String id=request.getParameter("id");
-				System.out.println(id);
 				boolean idcheck=dao.isIdExist(id);
-				System.out.println(idcheck);
-				request.setAttribute("result", idcheck);
-				request.getRequestDispatcher("/members/idcheck.jsp").forward(request, response);
+				//보내기
+				String result=g.toJson(idcheck);
+				pw.append(result);
+				
+				//보내기 이젠 안 쓰는 방법
+				//request.setAttribute("result", idcheck);
+				//request.getRequestDispatcher("/members/idcheck.jsp").forward(request, response);
 				
 			}else if(cmd.equals("/signup.members")) {
 				String id=request.getParameter("id");
