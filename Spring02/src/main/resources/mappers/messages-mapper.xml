@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper의 id같은 느낌 -->
+<mapper namespace="Messages">
+	<select id="selectByCon" resultType="com.kedu.dto.MessagesDTO">
+		select * from messages where ${column} like '%'||#{keyword}||'%'
+		<!-- 	<if test="column=='writer'">
+				where writer=#{keyword}
+			</if>
+			<if test="column=='message'">
+				where writer=#{keyword}
+			</if> -->
+	</select>
+	
+	<select id="selectByMultiCon" resultType="com.kedu.dto.MessagesDTO">
+		select * form messages
+		
+		<!-- prefixOverrides는 맨 앞에 and가 있는지 검사 있으면 지우고(재정의),
+		 where을 붙인다. -->
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="writer!=''">
+				writer = #{writer}
+			</if>
+			<if test="message!=''">
+				and message = #{message}
+			</if>
+		</trim> 
+	</select>
+	
+	
+ 	<insert id="insert">
+ 		insert into messages values(messages_seq.nextval ,#{writer}, #{message})	
+ 		<selectKey resultType="int" order="AFTER" keyProperty="seq">
+ 			select messages_seq.currval from dual
+ 		</selectKey>
+ 	</insert>
+ 	
+ 	<select id="selectAll" resultType="java.util.Map">
+ 		select * from messages order by seq desc
+ 	</select>
+ 	
+ 	<delete id="delete">
+ 		delete from messages where seq = #{seq}
+ 	</delete>
+ 	
+ 	<update id="update">
+ 		update messages set writer=#{writer}, message=#{message} where seq=#{seq}
+ 	</update>
+ 	
+ 	<!-- 예외상황들 -->
+	<select id="selectlike" resultType="java.util.Map">
+		select * from messages where message like '%'||#{search}||'%'
+	</select> 	
+		
+	<insert id="insert2">
+ 		insert into messages values(messages_seq.nextval ,#{writer}, #{message})	
+ 		<!-- order는 실행순서이다. nextval 후 currval 사용 -->
+ 		<selectKey resultType="int" order="AFTER" keyProperty="seq">
+ 			select messages_seq.currval from dual
+ 		</selectKey>
+ 	</insert>
+ 	
+ 	<!-- <select id="selectRange" resultType="java.util.Map">
+ 		
+ 	</select> -->
+ 	
+ 	
+</mapper>
