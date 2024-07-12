@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--main에 인자값으로 하나하나 주던 것을 이 문서에서 만들고 프로그램이 시작할 때 참조하도록 한 것-->
+<!-- 디폴트는 싱글톤, 싱글톤 적용 없애는 방법: scope="prototype"-->
+<!-- 디폴트는 getBean없이 바로 만들어짐: getBean하는 시점에 new하기 lazy-init="true"-->
+	<!-- 경로같은 느낌: 패키지명,자바클래스명 -->
+	<!-- 이 클래스 바로바로 new한다. -->
+	
+	<!--어떤 경우에 안쪽을 쓰는가? 초기값을 설정하고 싶을 때-->
+	<!-- 같은 타입 2개 꺼낼 때 id를 줘야한다. id="tv1"-->
+	<!-- 생성은 3개되지만 사용은 2개이다. id로 주입했기 때문에 헷갈리지 않는다. -->
+	
+	<bean id="appple" class="com.kedu.beans.AppleSpeaker">
+	</bean>
+	
+	<bean class="com.kedu.beans.SamsungTV" >
+		<!--생성자로 초기값 설정 순서대로 채널, 볼륨-->
+		<constructor-arg value="10"/> 
+		<constructor-arg value="5"/>
+		<constructor-arg ref="sony"/> <!-- 기본타입 아닌 참조값 유형은 ref를 사용해야 한다. -->
+	</bean>
+	
+	<bean id="sony" class="com.kedu.beans.SonySpeaker">
+	</bean>
+	
+	<!--<bean id="tv2" class="com.kedu.beans.SamsungTV" >
+		셋터로 초기값 설정
+		<property name="channel" value="10"></property>
+		<property name="volume" value="5"></property>
+		<property name="speaker" ref="sony"></property>
+	</bean>-->
+</beans>
